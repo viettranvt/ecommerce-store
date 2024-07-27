@@ -6,7 +6,7 @@ import { isAuthenticate } from "../auth/fetchApi";
 import { cartList } from "../productDetails/Mixins";
 import { subTotal, quantity, totalCost } from "./Mixins";
 
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 const CartModal = () => {
   const history = useHistory();
@@ -101,7 +101,7 @@ const CartModal = () => {
                       <div className="text-white flex space-x-2 my-4 items-center">
                         <img
                           className="w-16 h-16 object-cover object-center"
-                          src={`${apiURL}/uploads/products/${item.pImages[0]}`}
+                          src={`${item.pImages[0]}`}
                           alt="cartProduct"
                         />
                         <div className="relative w-full flex flex-col">
@@ -122,7 +122,7 @@ const CartModal = () => {
                               <span className="text-sm text-gray-400">
                                 Subtotoal :
                               </span>{" "}
-                              ${subTotal(item._id, item.pPrice)}.00
+                              ₩{subTotal(item._id, item.pPrice)}.00
                             </div>{" "}
                             {/* SUbtotal Count */}
                           </div>
@@ -175,7 +175,7 @@ const CartModal = () => {
                       cartModalOpen();
                     }}
                   >
-                    Checkout ${data.cartTotalCost}.00
+                    Checkout ₩{data.cartTotalCost}.00
                   </div>
                 ) : (
                   <div
@@ -193,7 +193,7 @@ const CartModal = () => {
                       });
                     }}
                   >
-                    Checkout ${data.cartTotalCost}.00
+                    Checkout ₩{data.cartTotalCost}.00
                   </div>
                 )}
               </Fragment>

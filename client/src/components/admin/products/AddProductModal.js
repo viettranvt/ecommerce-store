@@ -39,12 +39,17 @@ const AddProductDetail = ({ categories }) => {
     e.preventDefault();
     e.target.reset();
 
-    if (!fData.pImage) {
+    let imageLinks = fData.pImage || "";
+    imageLinks = imageLinks.replace(/\s+/g, '').split(",");
+
+    if (imageLinks.length < 2) {
       setFdata({ ...fData, error: "Please upload at least 2 image" });
       setTimeout(() => {
         setFdata({ ...fData, error: false });
       }, 2000);
     }
+
+    fData.pImage = imageLinks
 
     try {
       let responseData = await createProduct(fData);
@@ -194,7 +199,7 @@ const AddProductDetail = ({ categories }) => {
             </div>
             {/* Most Important part for uploading multiple image */}
             <div className="flex flex-col mt-4">
-              <label htmlFor="image">Product Images *</label>
+              <label htmlFor="image">Product Images Links *</label>
               <span className="text-gray-600 text-xs">Must need 2 images</span>
               <input
                 onChange={(e) =>
@@ -202,14 +207,13 @@ const AddProductDetail = ({ categories }) => {
                     ...fData,
                     error: false,
                     success: false,
-                    pImage: [...e.target.files],
+                    pImage: e.target.value,
                   })
                 }
-                type="file"
-                accept=".jpg, .jpeg, .png"
+                type="url"
+                placeholder="Enter image URL"
                 className="px-4 py-2 border focus:outline-none"
                 id="image"
-                multiple
               />
             </div>
             {/* Most Important part for uploading multiple image */}

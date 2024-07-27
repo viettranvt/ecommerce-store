@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { wishListProducts } from "./FetchApi";
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 const Product = () => {
   const history = useHistory();
@@ -56,7 +56,7 @@ const Product = () => {
                   <img
                     onClick={(e) => history.push(`/products/${product._id}`)}
                     className="cursor-pointer md:h-20 md:w-20 object-cover object-center"
-                    src={`${apiURL}/uploads/products/${product.pImages[0]}`}
+                    src={`${product.pImages[0]}`}
                     alt="wishListproduct"
                   />
                   <div className="text-lg md:ml-6 truncate">
@@ -65,7 +65,7 @@ const Product = () => {
                 </div>
                 <div className="md:w-1/2 md:flex md:items-center md:justify-around">
                   <div className="font-semibold text-gray-600">
-                    ${product.pPrice}.00
+                    ₩{product.pPrice}.00
                   </div>
                   {product.pQuantity > 0 ? (
                     <div className="text-green-500 my-1 md:my-0">In Stock</div>

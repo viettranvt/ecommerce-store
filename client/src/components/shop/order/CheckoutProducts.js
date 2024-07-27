@@ -7,9 +7,7 @@ import { cartListProduct } from "../partials/FetchApi";
 import { getBrainTreeToken, getPaymentProcess } from "./FetchApi";
 import { fetchData, fetchbrainTree, pay } from "./Action";
 
-import DropIn from "braintree-web-drop-in-react";
-
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 export const CheckoutComponent = (props) => {
   const history = useHistory();
@@ -18,6 +16,7 @@ export const CheckoutComponent = (props) => {
   const [state, setState] = useState({
     address: "",
     phone: "",
+    // name: "",
     error: false,
     success: false,
     clientToken: null,
@@ -75,6 +74,25 @@ export const CheckoutComponent = (props) => {
                   ) : (
                     ""
                   )}
+                  {/* <div className="flex flex-col py-2 mb-2">
+                    <label htmlFor="phone" className="pb-2">
+                      Name
+                    </label>
+                    <input
+                      value={state.name}
+                      onChange={(e) =>
+                        setState({
+                          ...state,
+                          name: e.target.value,
+                          error: false,
+                        })
+                      }
+                      type="text"
+                      id="name"
+                      className="border px-4 py-2"
+                      placeholder="Your Name"
+                    />
+                  </div> */}
                   <div className="flex flex-col py-2">
                     <label htmlFor="address" className="pb-2">
                       Dalivery Address
@@ -113,7 +131,7 @@ export const CheckoutComponent = (props) => {
                       placeholder="+880"
                     />
                   </div>
-                  <DropIn
+                  {/* <DropIn
                     options={{
                       authorization: state.clientToken,
                       paypal: {
@@ -121,7 +139,7 @@ export const CheckoutComponent = (props) => {
                       },
                     }}
                     onInstance={(instance) => (state.instance = instance)}
-                  />
+                  /> */}
                   <div
                     onClick={(e) =>
                       pay(
@@ -137,7 +155,7 @@ export const CheckoutComponent = (props) => {
                     className="w-full px-4 py-2 text-center text-white font-semibold cursor-pointer"
                     style={{ background: "#303031" }}
                   >
-                    Pay now
+                    Check out
                   </div>
                 </div>
               </Fragment>
@@ -183,20 +201,20 @@ const CheckoutProducts = ({ products }) => {
                   <img
                     onClick={(e) => history.push(`/products/${product._id}`)}
                     className="cursor-pointer md:h-20 md:w-20 object-cover object-center"
-                    src={`${apiURL}/uploads/products/${product.pImages[0]}`}
+                    src={`${product.pImages[0]}`}
                     alt="wishListproduct"
                   />
                   <div className="text-lg md:ml-6 truncate">
                     {product.pName}
                   </div>
                   <div className="md:ml-6 font-semibold text-gray-600 text-sm">
-                    Price : ${product.pPrice}.00{" "}
+                    Price : ₩{product.pPrice}.00{" "}
                   </div>
                   <div className="md:ml-6 font-semibold text-gray-600 text-sm">
                     Quantitiy : {quantity(product._id)}
                   </div>
                   <div className="font-semibold text-gray-600 text-sm">
-                    Subtotal : ${subTotal(product._id, product.pPrice)}.00
+                    Subtotal : ₩{subTotal(product._id, product.pPrice)}.00
                   </div>
                 </div>
               </div>

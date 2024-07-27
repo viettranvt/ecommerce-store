@@ -4,7 +4,7 @@ import moment from "moment";
 import { OrderContext } from "./index";
 import { fetchData, editOrderReq, deleteOrderReq } from "./Actions";
 
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 const AllCategory = (props) => {
   const { data, dispatch } = useContext(OrderContext);
@@ -45,6 +45,7 @@ const AllCategory = (props) => {
               <th className="px-4 py-2 border">Status</th>
               <th className="px-4 py-2 border">Total</th>
               <th className="px-4 py-2 border">Transaction Id</th>
+              {/* <th className="px-4 py-2 border">Name</th> */}
               <th className="px-4 py-2 border">Customer</th>
               <th className="px-4 py-2 border">Email</th>
               <th className="px-4 py-2 border">Phone</th>
@@ -100,7 +101,7 @@ const CategoryTable = ({ order, editOrder }) => {
               <span className="block flex items-center space-x-2" key={i}>
                 <img
                   className="w-8 h-8 object-cover object-center"
-                  src={`${apiURL}/uploads/products/${product.id.pImages[0]}`}
+                  src={`${product.id.pImages[0]}`}
                   alt="productImage"
                 />
                 <span>{product.id.pName}</span>
@@ -137,11 +138,12 @@ const CategoryTable = ({ order, editOrder }) => {
           )}
         </td>
         <td className="hover:bg-gray-200 p-2 text-center">
-          ${order.amount}.00
+          ₩{order.amount}.00
         </td>
         <td className="hover:bg-gray-200 p-2 text-center">
           {order.transactionId}
         </td>
+        {/* <td className="hover:bg-gray-200 p-2 text-center">{order.name}</td> */}
         <td className="hover:bg-gray-200 p-2 text-center">{order.user.name}</td>
         <td className="hover:bg-gray-200 p-2 text-center">
           {order.user.email}

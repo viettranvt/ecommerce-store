@@ -42,9 +42,9 @@ class Product {
   }
 
   async postAddProduct(req, res) {
-    let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus } =
+    let { pName, pDescription, pPrice, pQuantity, pCategory, pOffer, pStatus, pImage } =
       req.body;
-    let images = req.files;
+    // let images = req.files;
     // Validation
     if (
       !pName |
@@ -55,28 +55,28 @@ class Product {
       !pOffer |
       !pStatus
     ) {
-      Product.deleteImages(images, "file");
+      // Product.deleteImages(images, "file");
       return res.json({ error: "All filled must be required" });
     }
     // Validate Name and description
     else if (pName.length > 255 || pDescription.length > 3000) {
-      Product.deleteImages(images, "file");
+      // Product.deleteImages(images, "file");
       return res.json({
         error: "Name 255 & Description must not be 3000 charecter long",
       });
     }
     // Validate Images
-    else if (images.length !== 2) {
-      Product.deleteImages(images, "file");
+    else if (pImage.length !== 2) {
+      // Product.deleteImages(images, "file");
       return res.json({ error: "Must need to provide 2 images" });
     } else {
       try {
-        let allImages = [];
-        for (const img of images) {
-          allImages.push(img.filename);
-        }
+        // let allImages = [];
+        // for (const img of images) {
+        //   allImages.push(img.filename);
+        // }
         let newProduct = new productModel({
-          pImages: allImages,
+          pImages: pImage,
           pName,
           pDescription,
           pPrice,
@@ -105,9 +105,9 @@ class Product {
       pCategory,
       pOffer,
       pStatus,
-      pImages,
+      pEditImages,
     } = req.body;
-    let editImages = req.files;
+    // let editImages = req.files;
 
     // Validate other fileds
     if (
@@ -129,10 +129,11 @@ class Product {
       });
     }
     // Validate Update Images
-    else if (editImages && editImages.length == 1) {
-      Product.deleteImages(editImages, "file");
-      return res.json({ error: "Must need to provide 2 images" });
-    } else {
+    // else if (editImages && editImages.length == 1) {
+    //   // Product.deleteImages(editImages, "file");
+    //   return res.json({ error: "Must need to provide 2 images" });
+    // } 
+    else {
       let editData = {
         pName,
         pDescription,
@@ -141,15 +142,16 @@ class Product {
         pCategory,
         pOffer,
         pStatus,
+        pImages: pEditImages
       };
-      if (editImages.length == 2) {
-        let allEditImages = [];
-        for (const img of editImages) {
-          allEditImages.push(img.filename);
-        }
-        editData = { ...editData, pImages: allEditImages };
-        Product.deleteImages(pImages.split(","), "string");
-      }
+      // if (editImages.length == 2) {
+      //   let allEditImages = [];
+      //   for (const img of editImages) {
+      //     allEditImages.push(img.filename);
+      //   }
+      //   editData = { ...editData, pImages: allEditImages };
+      //   Product.deleteImages(pImages.split(","), "string");
+      // }
       try {
         let editProduct = productModel.findByIdAndUpdate(pId, editData);
         editProduct.exec((err) => {
@@ -168,11 +170,11 @@ class Product {
       return res.json({ error: "All filled must be required" });
     } else {
       try {
-        let deleteProductObj = await productModel.findById(pId);
+        // let deleteProductObj = await productModel.findById(pId);
         let deleteProduct = await productModel.findByIdAndDelete(pId);
         if (deleteProduct) {
           // Delete Image from uploads -> products folder
-          Product.deleteImages(deleteProductObj.pImages, "string");
+          // Product.deleteImages(deleteProductObj.pImages, "string");
           return res.json({ success: "Product deleted successfully" });
         }
       } catch (err) {

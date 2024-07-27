@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Layout from "../layout";
 import { productByCategory } from "../../admin/products/FetchApi";
 
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 const Submenu = ({ category }) => {
   const history = useHistory();
@@ -60,7 +60,7 @@ const AllProduct = ({ products }) => {
                   <img
                     onClick={(e) => history.push(`/products/${item._id}`)}
                     className="w-full object-cover object-center cursor-pointer"
-                    src={`${apiURL}/uploads/products/${item.pImages[0]}`}
+                    src={`${item.pImages[0]}`}
                     alt=""
                   />
                   <div className="flex items-center justify-between mt-2">
@@ -89,7 +89,7 @@ const AllProduct = ({ products }) => {
                       </span>
                     </div>
                   </div>
-                  <div>{item.pPrice}.00$</div>
+                  <div>{item.pPrice}.00₩</div>
                   <div className="absolute top-0 right-0 mx-2 my-2 md:mx-4">
                     <svg
                       className="w-5 h-5 md:w-6 md:h-6 cursor-pointer text-yellow-700"

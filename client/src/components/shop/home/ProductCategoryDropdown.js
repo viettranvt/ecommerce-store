@@ -5,7 +5,7 @@ import { getAllCategory } from "../../admin/categories/FetchApi";
 import { getAllProduct, productByPrice } from "../../admin/products/FetchApi";
 import "./style.css";
 
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 const CategoryList = () => {
   const history = useHistory();
@@ -42,7 +42,7 @@ const CategoryList = () => {
                   className="col-span-1 m-2 flex flex-col items-center justify-center space-y-2 cursor-pointer"
                 >
                   <img
-                    src={`${apiURL}/uploads/categories/${item.cImage}`}
+                    src={`${item.cImage}`}
                     alt="pic"
                   />
                   <div className="font-medium">{item.cName}</div>
@@ -108,8 +108,8 @@ const FilterList = () => {
         <div className="flex justify-between items-center">
           <div className="flex flex-col space-y-2  w-2/3 lg:w-2/4">
             <label htmlFor="points" className="text-sm">
-              Price (between 0 and 10$):{" "}
-              <span className="font-semibold text-yellow-700">{range}.00$</span>{" "}
+              Price (between 0 and 10₩):{" "}
+              <span className="font-semibold text-yellow-700">{range}.00₩</span>{" "}
             </label>
             <input
               value={range}

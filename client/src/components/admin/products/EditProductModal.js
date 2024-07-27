@@ -2,7 +2,7 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 import { ProductContext } from "./index";
 import { editProduct, getAllProduct } from "./FetchApi";
 import { getAllCategory } from "../categories/FetchApi";
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 const EditProductModal = (props) => {
   const { data, dispatch } = useContext(ProductContext);
@@ -65,11 +65,18 @@ const EditProductModal = (props) => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    if (!editformData.pEditImages) {
+
+    let imageLinks = editformData.pEditImages || "";
+    imageLinks = imageLinks.replace(/\s+/g, '').split(",");
+
+    if (imageLinks.length < 2) {
       console.log("Image Not upload=============", editformData);
     } else {
       console.log("Image uploading");
     }
+
+    editformData.pEditImages = imageLinks
+
     try {
       let responseData = await editProduct(editformData);
       if (responseData.success) {
@@ -202,38 +209,38 @@ const EditProductModal = (props) => {
             </div>
             {/* Most Important part for uploading multiple image */}
             <div className="flex flex-col mt-4">
-              <label htmlFor="image">Product Images *</label>
+              <label htmlFor="image">Product Images Link *</label>
               {editformData.pImages ? (
                 <div className="flex space-x-1">
                   <img
                     className="h-16 w-16 object-cover"
-                    src={`${apiURL}/uploads/products/${editformData.pImages[0]}`}
+                    src={`${editformData.pImages[0]}`}
                     alt="productImage"
                   />
                   <img
                     className="h-16 w-16 object-cover"
-                    src={`${apiURL}/uploads/products/${editformData.pImages[1]}`}
+                    src={`${editformData.pImages[1]}`}
                     alt="productImage"
                   />
                 </div>
               ) : (
                 ""
               )}
-              <span className="text-gray-600 text-xs">Must need 2 images</span>
+              <span className="text-gray-600 text-xs">Must need 2 images Links</span>
               <input
                 onChange={(e) =>
                   setEditformdata({
                     ...editformData,
                     error: false,
                     success: false,
-                    pEditImages: [...e.target.files],
+                    pEditImages: e.target.value,
                   })
                 }
-                type="file"
-                accept=".jpg, .jpeg, .png"
+                type="url"
+                // value={(editformData.pImages || []).join(',')}
+                placeholder="Enter image URL"
                 className="px-4 py-2 border focus:outline-none"
                 id="image"
-                multiple
               />
             </div>
             {/* Most Important part for uploading multiple image */}

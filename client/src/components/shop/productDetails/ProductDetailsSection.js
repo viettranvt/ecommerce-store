@@ -12,7 +12,7 @@ import { isWishReq, unWishReq, isWish } from "../home/Mixins";
 import { updateQuantity, slideImage, addToCart, cartList } from "./Mixins";
 import { totalCost } from "../partials/Mixins";
 
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 const ProductDetailsSection = (props) => {
   let { id } = useParams();
@@ -113,7 +113,7 @@ const ProductDetailsSection = (props) => {
               className={`${
                 count === 0 ? "" : "opacity-25"
               } cursor-pointer w-20 h-20 object-cover object-center`}
-              src={`${apiURL}/uploads/products/${sProduct.pImages[0]}`}
+              src={`${sProduct.pImages[0]}`}
               alt="pic"
             />
             <img
@@ -123,7 +123,7 @@ const ProductDetailsSection = (props) => {
               className={`${
                 count === 1 ? "" : "opacity-25"
               } cursor-pointer w-20 h-20 object-cover object-center`}
-              src={`${apiURL}/uploads/products/${sProduct.pImages[1]}`}
+              src={`${sProduct.pImages[1]}`}
               alt="pic"
             />
           </div>
@@ -131,7 +131,7 @@ const ProductDetailsSection = (props) => {
             <div className="relative">
               <img
                 className="w-full"
-                src={`${apiURL}/uploads/products/${sProduct.pImages[count]}`}
+                src={`${sProduct.pImages[count]}`}
                 alt="Pic"
               />
               <div className="absolute inset-0 flex justify-between items-center mb-4">
@@ -177,7 +177,7 @@ const ProductDetailsSection = (props) => {
               <div className="text-2xl tracking-wider">{sProduct.pName}</div>
               <div className="flex justify-between items-center">
                 <span className="text-xl tracking-wider text-yellow-700">
-                  ${sProduct.pPrice}.00
+                  ₩{sProduct.pPrice}.00
                 </span>
                 <span>
                   <svg

@@ -4,7 +4,7 @@ import moment from "moment";
 import { DashboardContext } from "./";
 import { todayAllOrders } from "./Action";
 
-const apiURL = process.env.REACT_APP_API_URL;
+// const apiURL = process.env.REACT_APP_API_URL;
 
 const SellTable = () => {
   const history = useHistory();
@@ -100,7 +100,7 @@ const TodayOrderTable = ({ order }) => {
               <img
                 key={index}
                 className="w-12 h-12 object-cover"
-                src={`${apiURL}/uploads/products/${item.id.pImages[0]}`}
+                src={`${item.id.pImages[0]}`}
                 alt="Pic"
               />
             );
