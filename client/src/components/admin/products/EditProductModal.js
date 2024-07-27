@@ -66,11 +66,14 @@ const EditProductModal = (props) => {
   const submitForm = async (e) => {
     e.preventDefault();
 
+    const oldImageLinks = (editformData.pImages || []).join(",");
     let imageLinks = editformData.pEditImages || "";
     imageLinks = imageLinks.replace(/\s+/g, '').split(",");
 
     if (imageLinks.length < 2) {
       console.log("Image Not upload=============", editformData);
+      console.log(oldImageLinks);
+      imageLinks = oldImageLinks.replace(/\s+/g, '').split(",");
     } else {
       console.log("Image uploading");
     }
