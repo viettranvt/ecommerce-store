@@ -1,4 +1,5 @@
 import { createOrder } from "./FetchApi";
+import { v4 as uuidv4 } from 'uuid';
 
 export const fetchData = async (cartListProduct, dispatch) => {
   dispatch({ type: "loading", payload: true });
@@ -56,12 +57,11 @@ export const pay = async (
       allProduct: JSON.parse(localStorage.getItem("cart")),
       user: JSON.parse(localStorage.getItem("jwt")).user._id,
       amount: totalCost(),
-      transactionId: "transaction_1",
+      transactionId: uuidv4(),
       address: state.address,
       phone: state.phone,
       // name: state.name,
     };
-    console.log(orderData);
     try {
       let resposeData = await createOrder(orderData);
       if (resposeData.success) {
